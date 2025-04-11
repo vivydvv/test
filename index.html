@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Say Hello App</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      margin-top: 50px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+    }
+    #response {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Say Hello</h1>
+  <input type="text" id="nameInput" placeholder="Enter your name" />
+  <button onclick="sendName()">Send</button>
+  <div id="response"></div>
+
+  <script>
+    async function sendName() {
+      const name = document.getElementById('nameInput').value;
+      const res = await fetch('https://your-backend.onrender.com/sayhello', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name })
+      });
+      const data = await res.json();
+      document.getElementById('response').textContent = data.message;
+    }
+  </script>
+</body>
+</html>
